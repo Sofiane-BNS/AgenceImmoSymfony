@@ -1,0 +1,10 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+
+  #Cette facon de definir les routes ne sera pas utilisé ici
+# home:
+#   path: /
+#   controller : App\Controller\HomeController::index
+
