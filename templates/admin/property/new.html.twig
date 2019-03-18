@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Créer un nouveau bien</h1>
+
+        {# Facon la plus simple d'afficher le formulaire sans modifications
+        {{ form_start(form) }}
+            {{ form_widget(form) }}
+        <button class="btn btn-primary">Editer</button>
+        {{ form_end(form) }}   #}
+        {{ include('/admin/property/_form.html.twig',{form: form, button: 'Ajouter'}) }}
+
+    </div>
+{% endblock %}
