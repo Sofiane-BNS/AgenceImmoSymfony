@@ -8,3 +8,5 @@
 #   path: /
 #   controller : App\Controller\HomeController::index
 
+logout:
+  path: /logout
