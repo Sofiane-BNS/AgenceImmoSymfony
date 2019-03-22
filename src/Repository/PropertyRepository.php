@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Property;
+use App\Entity\PropertySearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -21,15 +23,29 @@ class PropertyRepository extends ServiceEntityRepository
 
     //on type le retour de la fonction pour avoir de l'auto-complétion
     /**
-     * @return Property[]
+     * @return Query
      */
-    public function findAllVisible():array
+    public function findAllVisibleQuery(PropertySearch $search):Query
     {
 
-        return $this->createQueryBuilder('p')
-            ->where('p.sold = false')
-            ->getQuery()
-            ->getResult();
+        $query = $this->createQueryBuilder('p')
+            ->where('p.sold = false');
+
+        if($search->getMaxPrice()) {
+            // $query->andWhere('p.price<'.$search) on utilise pas ca pour faire attention au injections
+            $query = $query->andWhere('p.price <= :maxprice')
+            ->setParameter('maxprice',$search->getMaxPrice());
+        }
+
+        if($search->getMinSurface()) {
+            // $query->andWhere('p.price<'.$search) on utilise pas ca pour faire attention au injections
+            $query= $query->andWhere('p.surface>= :minsurface')
+                ->setParameter('minsurface',$search->getMinSurface());
+        }
+
+
+           return $query->getQuery();
+            // ->getResult();On ne renvoie pas le résultat mais la requete pour la pagination
     }
 
     /**
