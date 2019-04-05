@@ -6,10 +6,14 @@
     <div class="jumbotron">
         <div class="container">
             <div class="row">
-                <div class="col-md-8">
-
+                <div class="col-md-7">
+                    {% if property.filename %}
+                        <img src="../images/properties/{{ property.filename }}"  alt="card-img-top" style="width: 70%; height: 250px">
+                    {% else %}
+                        <img src="../images/properties/empty.jpg"  alt="card-img-top" style="width: 300px; height: 250px">
+                    {% endif %}
                 </div>
-                <div class="cold-md-4">
+                <div class="cold-md-5">
                     <h1>{{ property.title }}</h1>
                     <h2>{{ property.rooms }} pièces - {{ property.surface }} m2</h2>
                     <div class="text-primary" style="font-size: 4rem; font-weight: bold;">{{ property.formattedPrice }} $</div>
@@ -51,6 +55,11 @@
             </div>
             <div class="col-md-4">
                 <h2>Spécificités</h2>
+                <ul class="list-group">
+                    {% for option in property.options %}
+                        <li class="list-group-item">{{ option.name }}</li>
+                    {% endfor %}
+                </ul>
             </div>
         </div>
     </div>

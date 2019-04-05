@@ -72,7 +72,6 @@ class AdminPropertyController extends AbstractController {
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            //Si le formulaire est valide, il faut sauvegarder les changements en BD (tout est automatique)
             $this->em->flush();
             $this->addFlash('success','Bien modifié avec succès'); // permet d'afficher un message de succès
             return $this->redirectToRoute('admin.property.index');
